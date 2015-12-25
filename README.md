@@ -1,0 +1,18 @@
+OGL Wrapper
+===========
+
+Making myself an OpenGL-based graphics engine. No particular reason.
+
+Some of the code is based off of some C++ code from a course at university.
+
+Building
+========
+
+All of the dependencies are handled by DUB. As such, building the application
+should be as simple as running the dub command from within the project base
+directory. You can get dub here: http://code.dlang.org/download
+
+In order to run this on Windows, you will need to provide a 32-bit SDL2.dll
+either in the project folder or in your System32 folder so that SDL will run
+properly.
+
