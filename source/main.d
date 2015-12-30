@@ -16,8 +16,13 @@ void main(string[] args)
 			480, SDL_WINDOW_OPENGL);
 	auto context = SDL_GL_CreateContext(window);
 
+	// Loads up the associations for the current OpenGL context
 	DerelictGL3.reload();
 
+	// Just for testing
 	SDL_Delay(1000);
+
+	// Just for testing
+	Mat4 matrix = Mat4(0.0f);
 }
 
