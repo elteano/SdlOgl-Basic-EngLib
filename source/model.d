@@ -1,11 +1,6 @@
-class Model
+abstract class Model
 {
-private:
-
-
-public:
-	void draw()
-	{
-	}
+	public:
+		abstract void draw();
 }
 
