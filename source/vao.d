@@ -76,21 +76,22 @@ class Vao
 		 * If a VBO already exists for the given index, then the data in that VBO
 		 * will be overridden with the new data.
 		 */
-		void loadToBuffer(T)(T ptr, uint index, GLenum type, GLboolean normalized, GLsizei
-				stride)
+		void loadToBuffer(T)(T ptr, int size, uint index, GLenum type, GLsizei stride)
 		{
 			bindWrapStart();
 			uint vbo = 0;
+			// Here we ensure that we aren't creating an extra buffer object
 			glGetVertexAttribiv(index, GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING,
 					cast(int*) &vbo);
 			if (vbo == 0)
 			{
-				glGenBuffers(1, cast(int*) &vbo);
+				glGenBuffers(1, &vbo);
+				buffers ~= vbo;
 			}
-			glBindBuffers(GL_ARRAY_BUFFER, vbo);
-			glBufferData(GL_ARRAY_BUFFER, ptr.length * sizeof(ptr[0]), ptr.ptr,
+			glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			glBufferData(GL_ARRAY_BUFFER, ptr.length * ptr[0].sizeof, ptr.ptr,
 					GL_STATIC_DRAW);
-			glVertexAttribPointer(index, type, GL_FALSE, stride, 0);
+			glVertexAttribPointer(index, size, type, GL_FALSE, stride, null);
 			glEnableVertexAttribArray(index);
 			bindWrapEnd();
 		}
@@ -102,7 +103,7 @@ class Vao
 		 * If a VBO already exists for indices, then the data in that VBO will be
 		 * overridden with the new data.
 		 */
-		void loadIndices(uint[] indices, )
+		void loadIndices(T)(T indices)
 		{
 			bindWrapStart();
 			uint vbo = 0;
@@ -110,6 +111,7 @@ class Vao
 			if (vbo == 0)
 			{
 				glGenBuffers(1, &vbo);
+				buffers ~= vbo;
 			}
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.length *
