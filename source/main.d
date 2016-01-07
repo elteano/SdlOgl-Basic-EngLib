@@ -20,9 +20,24 @@ void main(string[] args)
 	DerelictGL3.reload();
 
 	// Just for testing
-	SDL_Delay(1000);
-
-	// Just for testing
 	Mat4 matrix = Mat4(0.0f);
+
+	render_loop();
+}
+
+void render_loop()
+{
+	bool stop;
+	SDL_Event event;
+	while (!stop)
+	{
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+			{
+				stop = true;
+			}
+		}
+	}
 }
 
