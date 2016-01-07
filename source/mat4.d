@@ -1,3 +1,4 @@
+import std.math;
 import core.stdc.string;
 import vec4;
 
@@ -106,7 +107,7 @@ struct Mat4
 			return true;
 		}
 
-		auto opBinary(string op)(ref T o)
+		auto opBinary(string op, T)(ref T o)
 		{
 			static if (op == "*") return mult(o);
 			else static assert(0, "Operator "~op~" not implemented for Mat4.");
@@ -114,7 +115,6 @@ struct Mat4
 
 		ref float opIndex(size_t i)
 		{
-			//static assert(i < 16 && i >= 0, "Mat4 index out of range.");
 			return m[i];
 		}
 
@@ -136,6 +136,17 @@ struct Mat4
 		@property auto ptr()
 		{
 			return m.ptr;
+		}
+
+		void makeProjection(float fov, float width, float height, float near,
+				float far)
+		{
+			fov = fov / 180 * PI;
+			float aspect = width / height;
+			set(1.0f / (aspect * tan(fov / 2.0f)), 0, 0, 0,
+					0, 1.0f / tan(fov / 2.0f), 0, 0,
+					0, 0, (near + far) / (near - far), -1.0f,
+					0, 0, 2.0f * near * far / (near - far), 0);
 		}
 }
 
