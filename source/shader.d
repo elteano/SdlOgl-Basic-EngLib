@@ -100,6 +100,12 @@ class ShaderProgram
 		{
 		}
 
+		static void unbind()
+		{
+			glUseProgram(0);
+			prev_prog = 0;
+		}
+
 		/**
 		 * Loads the shader from the given file and preps it for use in this
 		 * program as the geometry shader.
