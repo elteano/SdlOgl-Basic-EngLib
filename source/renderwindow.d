@@ -1,4 +1,3 @@
-import scene;
 import derelict.opengl3.gl3;
 import derelict.sdl2.sdl;
 
@@ -11,7 +10,6 @@ struct RenderWindow
 	private:
 		SDL_Window* window;
 		SDL_GLContext context;
-		Scene * scene;
 		void delegate() drawFunc;
 
 	public:
@@ -51,6 +49,11 @@ struct RenderWindow
 				SDL_DestroyWindow(window);
 				window = null;
 			}
+		}
+
+		@property const SDL_Window* handle()
+		{
+			return window;
 		}
 }
 

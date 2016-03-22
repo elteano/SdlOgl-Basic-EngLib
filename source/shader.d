@@ -282,6 +282,7 @@ char[] loadFile(string fname)
 {
 	char[] build;
 	auto f = new File(fname);
+	// Reserve enough space to hold the entire file, plus a null character
 	build.reserve(cast(size_t) f.size + 1);
 	foreach (ref line ; f.byLine())
 	{
