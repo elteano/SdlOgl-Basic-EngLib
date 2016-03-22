@@ -106,3 +106,16 @@ class ToggleNode : GroupNode
 		}
 }
 
+class ProgNode : GroupNode
+{
+	private:
+		ShaderProgram prog;
+
+	public:
+		override void draw(ref Mat4 cam, ref Mat4 proj, ref Mat4 trans)
+		{
+			prog.bind();
+			super.draw(cam, proj, new_trans);
+		}
+}
+
