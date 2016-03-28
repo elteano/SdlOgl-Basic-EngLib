@@ -51,7 +51,7 @@ struct RenderWindow
 			}
 		}
 
-		@property const SDL_Window* handle()
+		@property const(SDL_Window*) handle()
 		{
 			return window;
 		}

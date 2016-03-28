@@ -13,6 +13,7 @@ class Vao
 		 */
 		uint[] buffers;
 		static uint current_vao;
+		size_t num_indices;
 
 		/**
 		 * Call at the beginning of each function in order to ensure that this VAO
@@ -105,6 +106,7 @@ class Vao
 		 */
 		void loadIndices(T)(T indices)
 		{
+			num_indices = indices.length;
 			bindWrapStart();
 			uint vbo = 0;
 			glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, cast(int*) &vbo);
@@ -115,8 +117,13 @@ class Vao
 			}
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.length *
-					uint.sizeof, indices.ptr, GL_STATIC_DRAW);
+					typeof(*indices.ptr).sizeof, indices.ptr, GL_STATIC_DRAW);
 			bindWrapEnd();
+		}
+
+		@property size_t length()
+		{
+			return num_indices;
 		}
 }
 

@@ -1,5 +1,6 @@
 import model;
 import mat4;
+import shader;
 
 /**
  * Node within a scene graph.
@@ -115,7 +116,7 @@ class ProgNode : GroupNode
 		override void draw(ref Mat4 cam, ref Mat4 proj, ref Mat4 trans)
 		{
 			prog.bind();
-			super.draw(cam, proj, new_trans);
+			super.draw(cam, proj, trans);
 		}
 }
 
